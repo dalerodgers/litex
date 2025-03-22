@@ -1,11 +1,12 @@
-module motor_pwm_phase #(parameter SIZE=16)( iCLK, iRESET, iENABLE,
+module motor_pwm_phase #(parameter SIZE=16)(
+                        iCLK, iENABLE,
                         iPERIOD, iDUTY, iDEADBAND,
                         iCOUNTER,
                         oPAD_P, oPAD_N );
   
   // .....................................................
   
-  input iCLK, iRESET, iENABLE;
+  input iCLK, iENABLE;
   input [SIZE-1:0] iPERIOD, iDUTY, iDEADBAND, iCOUNTER;
   output oPAD_P, oPAD_N;
   
@@ -17,15 +18,27 @@ module motor_pwm_phase #(parameter SIZE=16)( iCLK, iRESET, iENABLE,
   initial begin
     pad_p <= 0;
     pad_n <= 1;
+
+    A = -16'd1;
+    B = -16'd1;
+    C = 0;
+    D = 0;
   end
   
   // .....................................................
   
-  always @(negedge iCLK or posedge iRESET)
+  always @( negedge iCLK or negedge iENABLE )
   begin
-    if( iRESET || !iENABLE ) begin
+    if( !iENABLE ) begin
+
       pad_p <= 0;
       pad_n <= 1;
+
+      A = -16'd1;
+      B = -16'd1;
+      C = 0;
+      D = 0;
+
     end else begin
       if( iCOUNTER == 0 ) begin
         A = ( iPERIOD - iDUTY ) >> 1;
@@ -33,7 +46,7 @@ module motor_pwm_phase #(parameter SIZE=16)( iCLK, iRESET, iENABLE,
         C = A + iDUTY;
         D = C + iDEADBAND;
       end
-      
+  
       if( ( iCOUNTER < A ) || ( iCOUNTER > D ) ) begin
         pad_n <= 1;
       end else begin
@@ -45,6 +58,7 @@ module motor_pwm_phase #(parameter SIZE=16)( iCLK, iRESET, iENABLE,
       end else begin
         pad_p <= 1;
       end
+
     end
   end
   

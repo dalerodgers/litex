@@ -14,7 +14,6 @@ class PwmModule(LiteXModule):
 
         self.specials += Instance( "motor_pwm_phase",
                                    i_iCLK = ClockSignal(clock_domain),
-                                   i_iRESET = ResetSignal(clock_domain),
                                    i_iENABLE = 1, #self.enable.storage,
                                    i_iPERIOD = 1000, #self.period.storage,
                                    i_iDUTY = 500, #self.duty.storage,
