@@ -1,3 +1,5 @@
+`include "motor_pwm_phase.v"
+
 module motor_pwm #(parameter SIZE=16)(
                     iCLK, iENABLE,
                     iPERIOD, iDEADBAND,

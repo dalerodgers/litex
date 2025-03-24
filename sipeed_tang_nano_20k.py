@@ -156,8 +156,11 @@ class BaseSoC(SoCCore):
             self.buttons = GPIOIn(pads=~platform.request_all("btn"))
 
         # PWM --------------------------------------------------------------------------------------
-        platform.add_source("verilog/motor_pwm/motor_pwm_phase.v")   # Will automatically add the core as Verilog source.
-        self.pwm = PwmModule( platform.request("PA_high"), platform.request("PA_low") )
+        platform.add_source("verilog/motor_pwm/motor_pwm.v")   # Will automatically add the core as Verilog source.
+
+        self.pwm = PwmModule( platform.request("PA_P"), platform.request("PA_N"),
+                              platform.request("PB_P"), platform.request("PB_N"),
+                              platform.request("PC_P"), platform.request("PC_N") )
 
 # Build --------------------------------------------------------------------------------------------
 

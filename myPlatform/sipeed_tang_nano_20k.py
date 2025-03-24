@@ -103,8 +103,12 @@ _io = [
     ("O_sdram_ba",    0, Pins(2),  IOStandard("LVCMOS33")),
     ("IO_sdram_dq",   0, Pins(32), IOStandard("LVCMOS33")),
 
-    ("PA_high",       0, Pins("51"), IOStandard("LVCMOS33")),
-    ("PA_low",        0, Pins("53"), IOStandard("LVCMOS33")),
+    ("PA_P",          0, Pins("51"), IOStandard("LVCMOS33")),
+    ("PA_N",          0, Pins("54"), IOStandard("LVCMOS33")),
+    ("PB_P",          0, Pins("48"), IOStandard("LVCMOS33")),
+    ("PB_N",          0, Pins("55"), IOStandard("LVCMOS33")),
+    ("PC_P",          0, Pins("49"), IOStandard("LVCMOS33")),
+    ("PC_N",          0, Pins("86"), IOStandard("LVCMOS33")),
 ]
 
 # Connectors ---------------------------------------------------------------------------------------
